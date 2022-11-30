@@ -2,7 +2,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 // import { styled } from '@mui/system'
 
-import { styled } from '@mui/material'
+import { Stack, styled } from '@mui/material'
 // import Stack from '@mui/material/Stack'
 
 import Grid from '@mui/material/Grid'
@@ -11,6 +11,8 @@ import Box from '@mui/material/Box'
 
 import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
+import TelegramIcon from '@mui/icons-material/Telegram';
+import ChatIcon from '@mui/icons-material/Chat';
 
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
@@ -148,9 +150,9 @@ function formatPhoneNumber(phoneNumberString) {
   return null
 }
 
-const handleChatSection = () =>{
+// const handleChatSection = () =>{
   
-}
+// }
 
 var getInitials = function (string) {
   var names = string.split(' '),
@@ -183,16 +185,26 @@ export default function PostCard(props: PostCardProps) {
 
   //========================== handle chat section===========
   const [displayButton, setDisplayButton] = useState(false)
-  const [displayeChat, setdisplayeChat] = useState(true)
-  const [isMobileView, setIsMobileView] = useState(false)
+  const [displayeChat, setdisplayeChat] = useState(false)
+  const [isMobileView ,setisMobileView] = useState(false);
 
-  const handleChatSection = (e) =>{
-    e.preventDefault()
-    if(displayeChat){
-      setdisplayeChat(false)
+  useEffect(() => {
+    
+    if(isMobileView){
+      setDisplayButton(true);
+      setdisplayeChat(false);
     }else{
-      setdisplayeChat(true)
+      setDisplayButton(false);
+      setdisplayeChat(true);
     }
+    
+  }, [isMobileView])
+  
+  const handleChatSection = (e) =>{
+    // e.preventDefault()
+    // alert("PResed")
+    setdisplayeChat(v=>!v)
+    
   }
 
   //=========================== end handle chat section ==================
@@ -433,11 +445,20 @@ export default function PostCard(props: PostCardProps) {
 
   function onResize() {
     if(window.innerWidth <= 900){
-      setdisplayeChat(false)
-      setDisplayButton(true)
+      setisMobileView(true);
+    //   setDisplayButton(true)
+    //  if(!isBtn){
+    //   setdisplayeChat(false);
+    //  }else{
+     
+    //   setdisplayeChat(true);
+    //  }
+     
     }else{
-      setdisplayeChat(true)
-      setDisplayButton(false)
+      setisMobileView(false);
+      // alert("Test")
+      // setdisplayeChat(true);
+      // setDisplayButton(false)
     }
     if (window.innerWidth < 768) {
       
@@ -534,7 +555,7 @@ export default function PostCard(props: PostCardProps) {
         ) : null}
         <Grid container>
           <Grid xs={mode === 'MINI' ? 12 : 10}>
-            <Link
+            {/* <Link
               href={`/post/${post.title
                 .toLowerCase()
                 .trim()
@@ -543,7 +564,7 @@ export default function PostCard(props: PostCardProps) {
               variant="body2"
               color="primary"
               style={mode === 'MINI' ? {} : { fontWeight: 'bold' }}
-            >
+            > */}
               
               <div
                 className={clsx(
@@ -593,7 +614,8 @@ export default function PostCard(props: PostCardProps) {
                     <Box ml={2}>
                       {(pageName == 'seller-post' ||
                         pageName == 'post-list') && (
-                        <Box display="flex" justifyContent="space-between">
+                        <Box display="flex" justifyContent="space-between" >
+                          <Stack direction="row" className={styles.outer_chat_box}>
                           <Box>
                             <Link
                               href={`/seller/${postUser.alt_id}`}
@@ -624,13 +646,20 @@ export default function PostCard(props: PostCardProps) {
                                   : postUser.full_name}
                               </Typography>
                             </Link>{' '}
+                            
                           </Box>
+
+                          {displayButton && (<div className={styles.chat_message_button}>
+                      <IconButton  variant="contained" id="chat_button_id" color="primary"  onClick={handleChatSection} > <ChatIcon/> </IconButton>
+                      </div>)}
+
+
+                          </Stack>
+                          
                         </Box>
                       )}
 
-                      <div className={styles.chat_message_button}>
-                      {displayButton && (<Button variant="contained" id="chat_button_id" onClick={handleChatSection}> Chat </Button>)}
-                      </div>
+                      
                       
                       <div className={styles.postCard__location_price_wrapper}>
                         
@@ -753,7 +782,7 @@ export default function PostCard(props: PostCardProps) {
                   </Box>
                 </div>
               </div>
-            </Link>
+            {/* </Link> */}
           </Grid>
           <Grid item xs={2}>
             {mode === 'OWNER' && (
@@ -941,7 +970,7 @@ export default function PostCard(props: PostCardProps) {
         <Divider />
         <div className={styles.postCard__content}>
           <div className={styles.postCard__topRow}>
-            <Link
+            {/* <Link
               href={`/post/${post.title
                 .toLowerCase()
                 .trim()
@@ -977,7 +1006,7 @@ export default function PostCard(props: PostCardProps) {
                   {ReactHtmlParser(post.detail)}
                 </Typography>
               )}
-            </Link>
+            </Link> */}
 
             {pageName !== 'seller-post' && mode !== 'OWNER' && (
               <>

@@ -13,6 +13,12 @@
   box-shadow: var(--new-shade);
   position: relative;
   height: 100%;
+
+}
+.outer_chat_box{
+ 
+  width: 100%;
+  justify-content:space-between;
 }
 .postCard__mode-MINI {
   --padding: 55px 35px;
@@ -256,6 +262,7 @@
 .chat_message_button{
   padding-bottom: 10px;
   display: flex;
+  margin-top: -5px;
 }
 
 .posts__category {
