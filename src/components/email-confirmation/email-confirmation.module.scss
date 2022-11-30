@@ -1,0 +1,22 @@
+.email-confirmation-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+}
+.email-confirmation-title,
+.email-confirmation-desc {
+  text-align: center;
+}
+.email-confirmation-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  margin: 0 auto;
+}
+.email-resend-link {
+  color: blue;
+  cursor: pointer;
+  font-weight: 500;
+}
